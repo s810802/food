@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="美味的餐點，快速外送，訂購到家。">
+    <title>美食外送 - 線上訂餐</title>
+    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 導航列 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">🍜</span>
+            <span class="brand-name">美食外送</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-category="all">全部</a>
+            <a href="#" class="nav-link" data-category="main">主食</a>
+            <a href="#" class="nav-link" data-category="drink">飲料</a>
+            <a href="#" class="nav-link" data-category="dessert">甘點</a>
+        </div>
+        <div class="cart-icon" onclick="toggleCart()">
+            <span>🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+
+    <!-- 主內容 -->
+    <main class="main-content">
+        <!-- 主視覺區 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>歡迎來到美食外送</h1>
+                <p>美味佳館，送達到家</p>
+            </div>
+        </section>
+
+        <!-- 菜單區 -->
+        <section class="menu-section">
+            <h2 class="section-title">精選菜單</h2>
+            <div class="menu-grid" id="menuGrid">
+                <!-- JavaScript 動態生成 -->
+            </div>
+        </section>
+    </main>
+
+    <!-- 購物車 -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>🛒 購物車</h2>
+            <button class="close-btn" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- JavaScript 動態生成 -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>總計</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <button class="checkout-btn" onclick="showCheckout()">立即結帳</button>
+        </div>
+    </aside>
+
+    <!-- 結帳視窗 -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-box checkout-modal">
+            <div class="modal-header">
+                <h2>填寫訂單資訊</h2>
+                <button class="close-btn" onclick="closeCheckout()">&times;</button>
+            </div>
+            <form id="checkoutForm" onsubmit="submitOrder(event)">
+                <div class="form-section">
+                    <h3>📍 外送資訊</h3>
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" required placeholder="請輸入姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">電話</label>
+                        <input type="tel" id="phone" required placeholder="請輸入電話">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">地址</label>
+                        <input type="text" id="address" required placeholder="請輸入外送地址">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>💳 付款方式</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash" checked>
+                            <span class="option-content">
+                                <span class="option-icon">💵</span>
+                                <span>貨到付款</span>
+                            </span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card">
+                            <span class="option-content">
+                                <span class="option-icon">💳</span>
+                                <span>信用卡</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>📝 備註</h3>
+                    <div class="form-group">
+                        <textarea id="notes" rows="3" placeholder="有什麼需要特別注意的嗎？"></textarea>
+                    </div>
+                </div>
+
+                <div class="order-summary">
+                    <h3>📋 訂單明細</h3>
+                    <div id="orderSummary"></div>
+                    <div class="summary-total">
+                        <span>總金額</span>
+                        <span id="summaryTotal">$0</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">確認訂單</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 訂單成功視窗 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box success-modal">
+            <div class="success-icon">✅</div>
+            <h2>訂單完成！</h2>
+            <p>感謝您的訂購</p>
+            <div class="order-number">
+                訂單編號：<strong id="orderNumber"></strong>
+            </div>
+            <p class="delivery-info">預計 30-45 分鐘內送達</p>
+            <button class="submit-btn" onclick="closeSuccess()">完成</button>
+        </div>
+    </div>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
